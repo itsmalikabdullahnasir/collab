@@ -2,17 +2,20 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
+
 class FitnessClass {
 private:
-    std::string className;
+    string className;
     int maxSlots;
     int availableSlots;
 
 public:
-    FitnessClass(const std::string& name, int maxSlots)
+    FitnessClass(const string& name, int maxSlots)
         : className(name), maxSlots(maxSlots), availableSlots(maxSlots) {}
 
-    std::string getClassName() const {
+    string getClassName() const {
         return className;
     }
 
@@ -31,14 +34,14 @@ public:
 
 class Booking {
 private:
-    std::string memberName;
+    string memberName;
     FitnessClass* fitnessClass;
 
 public:
-    Booking(const std::string& name, FitnessClass* fitnessClass)
+    Booking(const string& name, FitnessClass* fitnessClass)
         : memberName(name), fitnessClass(fitnessClass) {}
 
-    std::string getMemberName() const {
+    string getMemberName() const {
         return memberName;
     }
 
@@ -54,47 +57,48 @@ int main() {
     FitnessClass pilates("Pilates", 8);
 
     // Create a vector to store bookings
-    std::vector<Booking> bookings;
+    vector<Booking> bookings;
 
     // Display available fitness classes
-    std::cout << "Available Fitness Classes:" << std::endl;
-    std::cout << "1. " << yoga.getClassName() << " (" << yoga.getAvailableSlots() << " slots available)" << std::endl;
-    std::cout << "2. " << zumba.getClassName() << " (" << zumba.getAvailableSlots() << " slots available)" << std::endl;
-    std::cout << "3. " << pilates.getClassName() << " (" << pilates.getAvailableSlots() << " slots available)" << std::endl;
+    cout << "Available Fitness Classes:" << endl;
+    cout << "1. " << yoga.getClassName() << " (" << yoga.getAvailableSlots() << " slots available)" << endl;
+    cout << "2. " << zumba.getClassName() << " (" << zumba.getAvailableSlots() << " slots available)" << endl;
+    cout << "3. " << pilates.getClassName() << " (" << pilates.getAvailableSlots() << " slots available)" << endl;
 
     // Get member's choice
     int choice;
-    std::cout << "Enter the number of the fitness class you want to book: ";
-    std::cin >> choice;
+    cout << "Enter the number of the fitness class you want to book: ";
+    cin >> choice;
 
     // Book a slot for the chosen fitness class
     FitnessClass* chosenClass = nullptr;
     switch (choice) {
-        case 1:
-            chosenClass = &yoga;
-            break;
-        case 2:
-            chosenClass = &zumba;
-            break;
-        case 3:
-            chosenClass = &pilates;
-            break;
-        default:
-            std::cout << "Invalid choice!" << std::endl;
-            return 0;
+    case 1:
+        chosenClass = &yoga;
+        break;
+    case 2:
+        chosenClass = &zumba;
+        break;
+    case 3:
+        chosenClass = &pilates;
+        break;
+    default:
+        cout << "Invalid choice!" << endl;
+        return 0;
     }
 
     if (chosenClass->bookSlot()) {
-        std::string memberName;
-        std::cout << "Enter your name: ";
-        std::cin >> memberName;
+        string memberName;
+        cout << "Enter your name: ";
+        cin >> memberName;
 
         Booking newBooking(memberName, chosenClass);
         bookings.push_back(newBooking);
 
-        std::cout << "Booking confirmed! You have successfully booked a slot for " << chosenClass->getClassName() << "." << std::endl;
-    } else {
-        std::cout << "Sorry, no slots available for " << chosenClass->getClassName() << "." << std::endl;
+        cout << "Booking confirmed! You have successfully booked a slot for " << chosenClass->getClassName() << "." << endl;
+    }
+    else {
+        cout << "Sorry, no slots available for " << chosenClass->getClassName() << "." << endl;
     }
 
     return 0;
